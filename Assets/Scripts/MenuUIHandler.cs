@@ -12,12 +12,13 @@ using UnityEditor;
 public class MenuUIHandler : MonoBehaviour
 {
     public TMP_InputField nameInputField;
+    public TextMeshProUGUI BestScoreText;
     public string playerName;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        BestScoreName();
     }
 
     // Update is called once per frame
@@ -29,6 +30,7 @@ public class MenuUIHandler : MonoBehaviour
     public void SavePlayerName()
     {
         playerName = nameInputField.text;
+        GameManager.instance.playerName = nameInputField.text.ToString();
     }
 
     public void StartNew()
@@ -43,5 +45,19 @@ public class MenuUIHandler : MonoBehaviour
 #else
         Application.Quit(); //original code to quit Unity player
 #endif    
+    }
+
+    public void BestScoreName()
+    {
+        if (!string.IsNullOrEmpty(GameManager.instance.bestPlayerName))
+        {
+            BestScoreText.text = "Best Score : " +
+                GameManager.instance.bestPlayerName + " : " +
+                GameManager.instance.bestScore;
+        }
+        else
+        {
+            BestScoreText.text = "Best Score : None";
+        }
     }
 }
